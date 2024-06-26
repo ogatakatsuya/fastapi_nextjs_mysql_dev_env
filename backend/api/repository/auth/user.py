@@ -52,7 +52,7 @@ async def authenticate_user(db, username: str, password: str):
         return False
     if not verify_password(password, user_password): # passwordが入力されたパスワードでuser_passwordがdbから取ってきた正しいパスワード
         return False
-    return True
+    return user
 
 def create_access_token(data: dict, expires_delta: Union[timedelta, None] = None):
     to_encode = data.copy()

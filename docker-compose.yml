@@ -41,6 +41,12 @@ services:
       - mysql_data:/var/lib/mysql
     ports:
       - 33306:3306  # ホストマシンのポート33306を、docker内のポート3306に接続する
+    command: > # テスト用のデータベースを作成
+      bash -c "
+      docker-entrypoint.sh mysqld &
+      sleep 30 &&
+      mysql -uroot -prootpassword -e 'CREATE DATABASE IF NOT EXISTS test_data CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;' &&
+      wait"
 
 volumes:
   mysql_data:
